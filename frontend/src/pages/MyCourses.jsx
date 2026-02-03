@@ -32,51 +32,57 @@ export default function MyCourses() {
 
   if (courses.length === 0) {
     return (
-      <p className="text-center mt-10 text-gray-600">
-        You have not subscribed to any courses yet.
-      </p>
+      <>
+        <Navbar />
+        <p className="text-center mt-10 text-gray-600">
+          You have not subscribed to any courses yet.
+        </p>
+      </>
     );
   }
 
   return (
     <>
-    <Navbar />
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">My Courses</h1>
+      <Navbar />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {courses.map((course) => (
-          <div
-            key={course.courseId}
-            className="border rounded-lg p-4 shadow"
-          >
-            {course.image && (
+      <div className="max-w-7xl mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-6">My Courses</h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {courses.map((course) => (
+            <div
+              key={course.courseId}
+              className="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden"
+            >
               <img
-                src={course.image}
+                src={course.image || "https://via.placeholder.com/400x250"}
                 alt={course.title}
-                className="h-40 w-full object-cover rounded mb-3"
+                className="h-40 w-full object-cover"
               />
-            )}
 
-            <h2 className="text-xl font-semibold">{course.title}</h2>
+              <div className="p-4">
+                <h2 className="text-lg font-semibold">
+                  {course.title}
+                </h2>
 
-            <p className="mt-2">
-              <span className="font-semibold">Price Paid:</span>{" "}
-              {course.pricePaid === 0 ? (
-                <span className="text-green-600">FREE</span>
-              ) : (
-                `₹${course.pricePaid}`
-              )}
-            </p>
+                <p className="mt-1 text-sm">
+                  <span className="font-medium">Price Paid:</span>{" "}
+                  {course.pricePaid === 0 ? (
+                    <span className="text-green-600">FREE</span>
+                  ) : (
+                    `₹${course.pricePaid}`
+                  )}
+                </p>
 
-            <p className="text-sm text-gray-600 mt-1">
-              Subscribed on:{" "}
-              {new Date(course.subscribedAt).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
+                <p className="text-xs text-gray-500 mt-1">
+                  Subscribed on{" "}
+                  {new Date(course.subscribedAt).toLocaleDateString()}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 }

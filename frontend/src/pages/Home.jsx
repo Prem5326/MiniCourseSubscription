@@ -33,47 +33,54 @@ export default function Home() {
 
   return (
     <>
-    <Navbar />
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Available Courses</h1>
+      <Navbar />
+      <div className="max-w-7xl mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-8">Available Courses</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {courses.map((course) => (
-          <div
-            key={course._id}
-            className="border rounded-lg p-4 shadow hover:shadow-lg transition"
-          >
-            {course.image && (
-              <img
-                src={course.image}
-                alt={course.title}
-                className="h-40 w-full object-cover mb-3 rounded"
-              />
-            )}
-
-            <h2 className="text-xl font-semibold">{course.title}</h2>
-            <p className="text-sm text-gray-600 mt-1">
-              {course.description}
-            </p>
-
-            <p className="mt-3 font-bold">
-              {course.price === 0 ? (
-                <span className="text-green-600">FREE</span>
-              ) : (
-                `₹${course.price}`
-              )}
-            </p>
-
-            <Link
-              to={`/courses/${course._id}`}
-              className="inline-block mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden"
             >
-              View Details
-            </Link>
-          </div>
-        ))}
+              <img
+                src={course.image || "https://via.placeholder.com/400x250"}
+                alt={course.title}
+                className="h-48 w-full object-cover"
+              />
+
+              <div className="p-5">
+                <h2 className="text-xl font-semibold mb-1">
+                  {course.title}
+                </h2>
+
+                <p className="text-sm text-gray-600 line-clamp-2">
+                  {course.description}
+                </p>
+
+                <div className="flex justify-between items-center mt-4">
+                  <span
+                    className={`font-semibold ${course.price === 0
+                        ? "text-green-600"
+                        : "text-gray-800"
+                      }`}
+                  >
+                    {course.price === 0 ? "FREE" : `₹${course.price}`}
+                  </span>
+
+                  <Link
+                    to={`/courses/${course._id}`}
+                    className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+                  >
+                    View Details
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
     </>
   );
 }

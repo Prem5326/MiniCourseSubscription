@@ -9,7 +9,7 @@ const subscriptionSchema = new mongoose.Schema(
     },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Course",
+      ref: "Course", // ⚠️ MUST MATCH MODEL NAME
       required: true,
     },
     pricePaid: {

@@ -28,7 +28,8 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow w-96"
+        className="bg-white p-8 rounded-xl shadow-md w-96"
+
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
 

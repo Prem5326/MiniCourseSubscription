@@ -1,6 +1,7 @@
 import Course from "../models/Course.js";
 import Subscription from "../models/Subscription.js";
 
+
 // POST /subscribe
 export const subscribeCourse = async (req, res) => {
   try {
@@ -58,25 +59,32 @@ export const subscribeCourse = async (req, res) => {
 };
 
 // GET /my-courses
+
 export const getMyCourses = async (req, res) => {
   try {
     const userId = req.user.userId;
 
     const subscriptions = await Subscription.find({ userId })
-      .populate("courseId")
+      .populate({
+        path: "courseId",
+        select: "title description image",
+      })
       .sort({ subscribedAt: -1 });
 
-    const result = subscriptions.map((sub) => ({
-      courseId: sub.courseId._id,
-      title: sub.courseId.title,
-      description: sub.courseId.description,
-      image: sub.courseId.image,
-      pricePaid: sub.pricePaid,
-      subscribedAt: sub.subscribedAt,
-    }));
+    const result = subscriptions
+      .filter(sub => sub.courseId) // 🛡️ prevent null crash
+      .map((sub) => ({
+        courseId: sub.courseId._id,
+        title: sub.courseId.title,
+        description: sub.courseId.description,
+        image: sub.courseId.image,
+        pricePaid: sub.pricePaid,
+        subscribedAt: sub.subscribedAt,
+      }));
 
     res.json(result);
-  } catch (err) {
+  } catch (error) {
+    console.error("MY COURSES ERROR:", error);
     res.status(500).json({
       message: "Failed to fetch subscribed courses",
     });
