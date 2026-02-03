@@ -9,7 +9,7 @@ A full-stack web application where users can browse courses and subscribe to the
 ## 🚀 Live Demo
 
 - **Frontend (Vercel):**  
-  👉 https://mini-course-subscription.vercel.app/login
+  👉 https://mini-course-subscription.vercel.app
 
 - **Backend (Render):**  
   👉 https://minicoursesubscription.onrender.com
